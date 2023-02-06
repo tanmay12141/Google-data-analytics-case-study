@@ -1,3 +1,7 @@
+library(tidyverse)
+library(here)
+library(skimr)
+library(janitor)
 activity <- read_csv("dailyActivity_merged.csv")
 heartrate <- read_csv("heartrate_seconds_merged.csv")
 sleep <- read_csv("sleepDay_merged.csv")
@@ -7,9 +11,6 @@ n_distinct(activity$ActivityDate)
 n_distinct(sleep$SleepDay)
 n_distinct(heartrate$Time)
 
-head(activity)
-head(sleep)
-head(heartrate)
 
 
 heartrate <- separate(heartrate, col="Time", into=c("Date", "Time"), sep="\\s")
@@ -30,28 +31,16 @@ heartrate %>% distinct()
 
 
 
-
-activity <- rename(activity, L_Distance = ModeratelyActiveDistance)
-activity <- rename(activity, M_Distance = LightActiveDistance)
-activity <- activity %>% 
-  rename(LightActiveDistance = L_Distance,
-         ModeratelyActiveDistance = M_Distance)
-
 #plots
 ggplot(activity, mapping = aes(x=VeryActiveMinutes, y=SedentaryMinutes)) + 
-  geom_point(color="#FA8072") + geom_smooth() +
+  geom_point(color="#FA2560") + geom_smooth() +
   labs(title="Very Active Minutes vs. Sedentary Minutes")
 
 ggplot(activity, mapping = aes(x=TotalSteps, y=VeryActiveMinutes)) + 
-  geom_point(color="#FA8072") + geom_smooth() +
+  geom_point(color="#FA2560") + geom_smooth() +
   labs(title="Total Steps vs. Very Active Minutes")
 
 
 ggplot(sleep, aes(x=TotalMinutesAsleep, y=TotalTimeInBed)) + 
-  geom_point(color="#FA8072") + geom_smooth() +
+  geom_point(color="#FA2560") + geom_smooth() +
   labs(title="Minutes Asleep vs. Time in Bed")
-
-
-ggplot(merged, mapping=aes(x=TotalMinutesAsleep, y=VeryActiveMinutes)) +
-  geom_point(color="#FA8072") + geom_smooth() +
-  labs(title="Minutes Asleep vs. Very Active Minutes")
