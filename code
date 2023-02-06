@@ -37,7 +37,7 @@ activity <- activity %>%
   rename(LightActiveDistance = L_Distance,
          ModeratelyActiveDistance = M_Distance)
 
-
+#plots
 ggplot(activity, mapping = aes(x=VeryActiveMinutes, y=SedentaryMinutes)) + 
   geom_point(color="#FA8072") + geom_smooth() +
   labs(title="Very Active Minutes vs. Sedentary Minutes")
